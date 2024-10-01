@@ -12,6 +12,7 @@
 (unless (display-graphic-p) (menu-bar-mode -1))
 (setq require-final-newline nil)
 (setq-default c-basic-offset 4)
+(setq python-indent-offset 4)
 
 ;; Key-bind
 (global-set-key (kbd "C-x C-b") 'ibuffer)
@@ -103,55 +104,55 @@
   :init
   (savehist-mode 1))
 
-(use-package emacs
-  :init
-  ;; Add prompt indicator to `completing-read-multiple'.
-  ;; We display [CRM<separator>], e.g., [CRM,] if the separator is a comma.
-  (defun crm-indicator (args)
-    (cons (format "[CRM%s] %s"
-		  (replace-regexp-in-string
-		   "\\`\\[.*?]\\*\\|\\[.*?]\\*\\'" ""
-		   crm-separator)
-		  (car args))
-	  (cdr args)))
-  (advice-add #'completing-read-multiple :filter-args #'crm-indicator)
+;; (use-package emacs
+;;   :init
+;;   ;; Add prompt indicator to `completing-read-multiple'.
+;;   ;; We display [CRM<separator>], e.g., [CRM,] if the separator is a comma.
+;;   (defun crm-indicator (args)
+;;     (cons (format "[CRM%s] %s"
+;; 		  (replace-regexp-in-string
+;; 		   "\\`\\[.*?]\\*\\|\\[.*?]\\*\\'" ""
+;; 		   crm-separator)
+;; 		  (car args))
+;; 	  (cdr args)))
+;;   (advice-add #'completing-read-multiple :filter-args #'crm-indicator)
 
-  ;; Do not allow the cursor in the minibuffer prompt
-  (setq minibuffer-prompt-properties
-	'(read-only t cursor-intangible t face minibuffer-prompt))
-  (add-hook 'minibuffer-setup-hook #'cursor-intangible-mode)
+;;   ;; Do not allow the cursor in the minibuffer prompt
+;;   (setq minibuffer-prompt-properties
+;; 	'(read-only t cursor-intangible t face minibuffer-prompt))
+;;   (add-hook 'minibuffer-setup-hook #'cursor-intangible-mode)
 
-  ;; Support opening new minibuffers from inside existing minibuffers.
-  (setq enable-recursive-minibuffers t)
+;;   ;; Support opening new minibuffers from inside existing minibuffers.
+;;   (setq enable-recursive-minibuffers t)
 
-  ;; Emacs 28 and newer: Hide commands in M-x which do not work in the current
-  ;; mode.  Vertico commands are hidden in normal buffers. This setting is
-  ;; useful beyond Vertico.
-  (setq read-extended-command-predicate #'command-completion-default-include-p))
+;;   ;; Emacs 28 and newer: Hide commands in M-x which do not work in the current
+;;   ;; mode.  Vertico commands are hidden in normal buffers. This setting is
+;;   ;; useful beyond Vertico.
+;;   (setq read-extended-command-predicate #'command-completion-default-include-p))
 
-;; Option 1: Additional bindings
-(keymap-set vertico-map "?" #'minibuffer-completion-help)
-(keymap-set vertico-map "M-RET" #'minibuffer-force-complete-and-exit)
-(keymap-set vertico-map "M-TAB" #'minibuffer-complete)
+;; ;; Option 1: Additional bindings
+;; (keymap-set vertico-map "?" #'minibuffer-completion-help)
+;; (keymap-set vertico-map "M-RET" #'minibuffer-force-complete-and-exit)
+;; (keymap-set vertico-map "M-TAB" #'minibuffer-complete)
 
-;; Option 2: Replace `vertico-insert' to enable TAB prefix expansion.
-;; (keymap-set vertico-map "TAB" #'minibuffer-complete)
-(setq completion-styles '(substring orderless basic))
-;;(setq completion-styles '(basic substring partial-completion flex))
+;; ;; Option 2: Replace `vertico-insert' to enable TAB prefix expansion.
+;; ;; (keymap-set vertico-map "TAB" #'minibuffer-complete)
+;; (setq completion-styles '(substring orderless basic))
+;; ;;(setq completion-styles '(basic substring partial-completion flex))
 
 
-(setq read-file-name-completion-ignore-case t
-      read-buffer-completion-ignore-case t
-      completion-ignore-case t)
+;; (setq read-file-name-completion-ignore-case t
+;;       read-buffer-completion-ignore-case t
+;;       completion-ignore-case t)
 
-;; Use `consult-completion-in-region' if Vertico is enabled.
-;; Otherwise use the default `completion--in-region' function.
-(setq completion-in-region-function
-      (lambda (&rest args)
-	(apply (if vertico-mode
-		   #'consult-completion-in-region
-		 #'completion--in-region)
-	       args)))
+;; ;; Use `consult-completion-in-region' if Vertico is enabled.
+;; ;; Otherwise use the default `completion--in-region' function.
+;; (setq completion-in-region-function
+;;       (lambda (&rest args)
+;; 	(apply (if vertico-mode
+;; 		   #'consult-completion-in-region
+;; 		 #'completion--in-region)
+;;	       args)))
 
 (use-package dashboard
   :ensure t
@@ -159,15 +160,15 @@
   (dashboard-setup-startup-hook)
   (setq dashboard-startup-banner 'official)) ; Use the official Emacs logo
 
-(use-package helm
-  :ensure t
-  :bind (("M-x" . helm-M-x)
-         ("C-x C-f" . helm-find-files)
-         ("C-x b" . helm-buffers-list)
-         ("C-x C-r" . helm-recentf)
-         ("M-y" . helm-show-kill-ring))
-  :config
-  (helm-mode 1))
+;; (use-package helm
+;;   :ensure t
+;;   :bind (("M-x" . helm-M-x)
+;;          ("C-x C-f" . helm-find-files)
+;;          ("C-x b" . helm-buffers-list)
+;;          ("C-x C-r" . helm-recentf)
+;;          ("M-y" . helm-show-kill-ring))
+;;   :config
+;;   (helm-mode 1))
 
 
 (defalias 'ro 'read-only-mode)
@@ -245,7 +246,27 @@
 
 ;; Beautiful
 (global-hl-line-mode 1)
-(set-face-background 'hl-line "#025e2b")
+(set-face-background 'hl-line "#5e0101")
 (custom-set-faces
  '(region ((t (:background "#250394")))))
 (set-face-foreground 'font-lock-comment-face "#037994")
+
+
+(setq gdb-many-windows t)  ; Use a layout with multiple windows by default in GDB
+(setq gdb-show-main t)     ; Show the main function automatically when GDB starts
+
+(windmove-default-keybindings)
+(global-set-key (kbd "S-<up>") 'windmove-up)
+(global-set-key (kbd "S-<down>") 'windmove-down)
+(global-set-key (kbd "S-<left>") 'windmove-left)
+(global-set-key (kbd "S-<right>") 'windmove-right)
+
+(use-package eyebrowse
+  :ensure t
+  :config
+  (eyebrowse-mode t)
+  (setq eyebrowse-new-workspace t))
+
+(winner-mode 1)
+
+;;(setq markdown-command "pandoc -f markdown -t html")

@@ -1,1 +1,2 @@
 alias em='emacs -nw'
+alias l='eza -l --icons=always'
