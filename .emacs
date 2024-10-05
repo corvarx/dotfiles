@@ -81,6 +81,11 @@
 (when (not package-archive-contents)
   (package-refresh-contents))
 
+;; Install markdown-mode if it's not already installed
+(unless (package-installed-p 'markdown-mode)
+  (package-install 'markdown-mode))
+
+
 ;;(add-hook 'c-mode-hook 'origami-mode)
 ;;(add-hook 'c++-mode-hook 'origami-mode)
 
