@@ -19,7 +19,7 @@ RUN apt update -y
 RUN apt upgrade -y
 RUN apt install -y emacs vim tmux apt python3-venv pandoc gdebi fonts-wqy-microhei python3-pip python3-virtualenv git
 RUN python3 -m venv /opt/venv
-RUN . /opt/venv/bin/activate && pip install pandas tabulate scipy bs4 markdown colorama
+RUN . /opt/venv/bin/activate && pip install pandas tabulate scipy bs4 markdown colorama openpyxl
 
 # For ARM machines
 RUN wget https://github.com/wkhtmltopdf/packaging/releases/download/0.12.6.1-2/wkhtmltox_0.12.6.1-2.jammy_arm64.deb
