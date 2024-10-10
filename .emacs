@@ -12,7 +12,9 @@
 (unless (display-graphic-p) (menu-bar-mode -1))
 (setq require-final-newline nil)
 (setq-default c-basic-offset 4)
-(setq python-indent-offset 4)
+(add-hook 'python-mode-hook
+	  (lambda ()
+	    (setq python-indent-offset 4)))
 
 ;; Key-bind
 (global-set-key (kbd "C-x C-b") 'ibuffer)
