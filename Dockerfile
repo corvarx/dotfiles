@@ -40,9 +40,9 @@ RUN echo "alias em='emacs -nw'" >> ~/.bashrc
 
 RUN echo "apt-get install --reinstall ttf-mscorefonts-installer" >> /root/setup.sh
 
-RUN git clone git@github.com:corvarx/dotfiles.git
-WORKDIR /root/dotfiles
-RUN . /root/dotfiles/dotsetup.sh
+RUN echo "git clone git@github.com:corvarx/dotfiles.git" >> /root/setup.sh
+RUN echo "cd /root/dotfiles" >> /root/setup.sh
+RUN echo ". /root/dotfiles/dotsetup.sh" >> /root/setup.sh
 
 EXPOSE 2286
 
