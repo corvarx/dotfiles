@@ -29,10 +29,17 @@ RUN . /opt/venv/bin/activate && pip install pandas tabulate scipy bs4 markdown c
 RUN wget https://github.com/wkhtmltopdf/packaging/releases/download/0.12.6.1-2/wkhtmltox_0.12.6.1-2.jammy_amd64.deb
 RUN gdebi -n wkhtmltox_0.12.6.1-2.jammy_amd64.deb
 
-RUN echo "source /opt/venv/bin/activate" >> /root/.bashrc
-RUN echo "# apt-get install --reinstall ttf-mscorefonts-installer" >> /root/.bashrc
 RUN apt-get install -y fontconfig
 RUN apt-get install -y ttf-mscorefonts-installer
+
+RUN git config --global user.email "xieyuejian@gmail.com"
+RUN git config --global user.name "Yuejian Xie"
+
+RUN echo "source /opt/venv/bin/activate" >> ~/.bashrc
+RUN echo "apt-get install --reinstall ttf-mscorefonts-installer" >> /root/setup.sh
+RUN git clone git@github.com:corvarx/dotfiles.git
+WORDIR /root/dotfiles
+RUN . /root/dotfiles/dotsetup.sh
 
 EXPOSE 2286
 
