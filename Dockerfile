@@ -41,7 +41,7 @@ RUN echo "alias em='emacs -nw'" >> ~/.bashrc
 RUN echo "apt-get install --reinstall ttf-mscorefonts-installer" >> /root/setup.sh
 
 RUN git clone git@github.com:corvarx/dotfiles.git
-WORDIR /root/dotfiles
+WORKDIR /root/dotfiles
 RUN . /root/dotfiles/dotsetup.sh
 
 EXPOSE 2286
