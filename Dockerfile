@@ -36,7 +36,10 @@ RUN git config --global user.email "xieyuejian@gmail.com"
 RUN git config --global user.name "Yuejian Xie"
 
 RUN echo "source /opt/venv/bin/activate" >> ~/.bashrc
+RUN echo "alias em='emacs -nw'" >> ~/.bashrc
+
 RUN echo "apt-get install --reinstall ttf-mscorefonts-installer" >> /root/setup.sh
+
 RUN git clone git@github.com:corvarx/dotfiles.git
 WORDIR /root/dotfiles
 RUN . /root/dotfiles/dotsetup.sh
