@@ -16,6 +16,12 @@
 	  (lambda ()
 	    (setq python-indent-offset 4)))
 
+;; Set JavaScript indentation to 4 spaces
+(setq js-indent-level 4)
+;; Set js2-mode indentation to 4 spaces
+(add-hook 'js2-mode-hook
+          (lambda ()
+            (setq js2-basic-offset 4)))
 ;; Key-bind
 (global-set-key (kbd "C-x C-b") 'ibuffer)
 
