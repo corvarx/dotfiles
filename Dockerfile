@@ -17,7 +17,7 @@ RUN echo "export VISIBLE=now" >> /etc/profile
 
 RUN apt update -y
 RUN apt upgrade -y
-RUN apt install -y emacs vim tmux apt python3-venv pandoc gdebi fonts-wqy-microhei python3-pip python3-virtualenv git nodejs npm
+RUN apt install -y emacs vim tmux apt python3-venv pandoc gdebi fonts-wqy-microhei python3-pip python3-virtualenv git nodejs npm curl
 RUN python3 -m venv /opt/venv
 RUN . /opt/venv/bin/activate && pip install pandas tabulate scipy bs4 markdown colorama openpyxl jinja2 markdown2
 
