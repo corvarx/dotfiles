@@ -265,3 +265,4 @@
 (winner-mode 1)
 
 ;;(setq markdown-command "pandoc -f markdown -t html")
+(setq column-number-mode t)
