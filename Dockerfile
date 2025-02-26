@@ -1,4 +1,4 @@
-FROM ubuntu:latest
+FROM ubuntu:noble
 
 RUN apt-get update && \
     apt-get install -y openssh-server && \
@@ -15,34 +15,7 @@ RUN sed 's@session\s*required\s*pam_loginuid.so@session optional pam_loginuid.so
 ENV NOTVISIBLE="in users profile"
 RUN echo "export VISIBLE=now" >> /etc/profile
 
-RUN apt update -y
-RUN apt upgrade -y
-RUN apt install -y emacs vim tmux apt python3-venv pandoc gdebi fonts-wqy-microhei python3-pip python3-virtualenv git nodejs npm curl default-jre cmake g++-14 ninja-build
-RUN python3 -m venv /opt/venv
-RUN . /opt/venv/bin/activate && pip install pandas tabulate scipy bs4 markdown colorama openpyxl jinja2 markdown2
-
-# For ARM machines
-RUN wget https://github.com/wkhtmltopdf/packaging/releases/download/0.12.6.1-2/wkhtmltox_0.12.6.1-2.jammy_arm64.deb
-RUN gdebi -n wkhtmltox_0.12.6.1-2.jammy_arm64.deb
-
-# For X86 machines
-#RUN wget https://github.com/wkhtmltopdf/packaging/releases/download/0.12.6.1-2/wkhtmltox_0.12.6.1-2.jammy_amd64.deb
-#RUN gdebi -n wkhtmltox_0.12.6.1-2.jammy_amd64.deb
-
-RUN apt-get install -y fontconfig
-RUN apt-get install -y ttf-mscorefonts-installer
-
-RUN git config --global user.email "xieyuejian@gmail.com"
-RUN git config --global user.name "Yuejian Xie"
-
-RUN echo "source /opt/venv/bin/activate" >> ~/.bashrc
-RUN echo "alias em='emacs -nw'" >> ~/.bashrc
-
-RUN echo "apt-get install --reinstall ttf-mscorefonts-installer" >> /root/setup.sh
-
-RUN echo "git clone git@github.com:corvarx/dotfiles.git" >> /root/setup.sh
-RUN echo "cd /root/dotfiles" >> /root/setup.sh
-RUN echo ". /root/dotfiles/dotsetup.sh" >> /root/setup.sh
+COPY setup.sh /root/
 
 EXPOSE 2286
 
