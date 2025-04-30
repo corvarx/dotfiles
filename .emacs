@@ -79,7 +79,8 @@
 
 
 (require 'package)
-(add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
+(add-to-list 'package-archives
+             '("melpa-stable" . "https://stable.melpa.org/packages/"))
 ;; Comment/uncomment this line to enable MELPA Stable if desired.  See `package-archive-priorities`
 ;; and `package-pinned-packages`. Most users will not need or want to do this.
 ;;(add-to-list 'package-archives '("melpa-stable" . "https://stable.melpa.org/packages/") t)
@@ -89,10 +90,12 @@
 (when (not package-archive-contents)
   (package-refresh-contents))
 
-;; Install markdown-mode if it's not already installed
-(unless (package-installed-p 'markdown-mode)
-  (package-install 'markdown-mode))
-
+(use-package markdown-mode
+  :ensure t
+  :mode ("README\\.md\\'" . gfm-mode)
+  :init (setq markdown-command "multimarkdown")
+  :bind (:map markdown-mode-map
+              ("C-c C-e" . markdown-do)))
 
 ;;(add-hook 'c-mode-hook 'origami-mode)
 ;;(add-hook 'c++-mode-hook 'origami-mode)
@@ -255,12 +258,6 @@
 (global-set-key (kbd "S-<down>") 'windmove-down)
 (global-set-key (kbd "S-<left>") 'windmove-left)
 (global-set-key (kbd "S-<right>") 'windmove-right)
-
-(use-package eyebrowse
-  :ensure t
-  :config
-  (eyebrowse-mode t)
-  (setq eyebrowse-new-workspace t))
 
 (winner-mode 1)
 
