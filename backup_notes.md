@@ -17,3 +17,9 @@ find disc7 -print0 |xargs -0 shasum -a 256 > ~/disc7_src.sha256
 find /Volumes/oldefs_7_9/disc7 -print0 |xargs -0 shasum -a 256 > ~/disc7_dst.sha256
 vimdiff disc7_src.sha256 disc7_dst.sha256
 ```
+
+# compres
+```
+tar -cvf - zh-win7 | zstd -15 -T0 -v -o zh-win7.tar.zst
+zstd -dc War3.tar.zst | tar -xvf -
+```
